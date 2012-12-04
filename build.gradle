@@ -1,0 +1,15 @@
+apply plugin: "groovy"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    groovy localGroovy()
+    compile gradleApi()
+    compile "junit:junit:4.10"
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion "1.3"
+}
