@@ -8,6 +8,8 @@ public abstract class GradleRunnerBuilder {
         return new DefaultGradleRunnerBuilder();
     }
 
+    public abstract ClasspathSpec getClasspath();
+
     public abstract GradleRunner build();
 
 }

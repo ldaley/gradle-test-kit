@@ -18,24 +18,22 @@ package org.gradle.testkit.functional.internal;
 
 import org.gradle.testkit.functional.ExecutionResult;
 import org.gradle.testkit.functional.GradleRunner;
-import org.gradle.tooling.BuildLauncher;
-import org.gradle.tooling.GradleConnector;
-import org.gradle.tooling.ProjectConnection;
 
 import java.io.File;
 
-public class ToolingApiGradleRunner implements GradleRunner {
+public class DefaultGradleRunner implements GradleRunner {
+
+    private final GradleHandleFactory handleFactory;
+
+    public DefaultGradleRunner(GradleHandleFactory handleFactory) {
+        this.handleFactory = handleFactory;
+    }
 
     public ExecutionResult run(File directory, String... arguments) {
         return start(directory, arguments).waitForFinish();
     }
 
     private GradleHandle start(File directory, String... arguments) {
-        GradleConnector connector = GradleConnector.newConnector();
-        connector.forProjectDirectory(directory);
-        ProjectConnection connection = connector.connect();
-        BuildLauncher launcher = connection.newBuild();
-        launcher.withArguments(arguments);
-        return new BuildLauncherBackedGradleHandle(launcher);
+        return handleFactory.start(directory, arguments);
     }
 }

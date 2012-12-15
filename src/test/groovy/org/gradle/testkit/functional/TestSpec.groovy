@@ -20,10 +20,6 @@ package org.gradle.testkit.functional
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.testkit.functional.internal.ToolingApiGradleRunner
-import org.jboss.shrinkwrap.api.ShrinkWrap
-import org.jboss.shrinkwrap.api.exporter.ZipExporter
-import org.jboss.shrinkwrap.api.spec.JavaArchive
 import org.junit.Rule
 import org.junit.rules.TemporaryFolder
 import spock.lang.Specification
@@ -39,27 +35,13 @@ class TestSpec extends Specification {
             apply plugin: ${SomePlugin.name}
         """
 
-        File jar = tmp.newFile("myPackage.jar")
-        ShrinkWrap.create(JavaArchive).
-                addClass(SomePlugin).
-                as(ZipExporter).
-                exportTo(jar, true)
-
-        def initScript = tmp.newFile("init.gradle") << """
-            allprojects {
-                buildscript {
-                    dependencies {
-                        classpath files("${jar.absolutePath}")
-                    }
-                }
-            }
-        """
-
         when:
-        GradleRunner runner = GradleRunnerBuilder.builder().build()
+        def builder = GradleRunnerBuilder.builder()
+        builder.classpath.classes << SomePlugin
+        GradleRunner runner = builder.build()
 
         then:
-        runner.run(tmp.root, "echo", "-I", initScript.absolutePath).standardOutput.contains("I ran!")
+        runner.run(tmp.root, "echo").standardOutput.contains("I ran!")
     }
 }
 
