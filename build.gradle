@@ -1,13 +1,37 @@
 apply plugin: "groovy"
+apply plugin: "idea"
+apply from: "gradle/idea.gradle"
+
+configurations {
+    compile.extendsFrom -= [groovy]
+    testCompile.extendsFrom groovy
+}
 
 repositories {
     mavenCentral()
+    maven {
+        url 'http://repo.gradle.org/gradle/libs-releases-local'
+    }
 }
 
 dependencies {
     groovy localGroovy()
     compile gradleApi()
+
+    compile "commons-io:commons-io:2.4"
+
+    compile "org.jboss.shrinkwrap:shrinkwrap-api:1.0.1"
+    runtime "org.jboss.shrinkwrap:shrinkwrap-spi:1.0.1"
+    runtime "org.jboss.shrinkwrap:shrinkwrap-impl-base:1.0.1"
+
+    compile "org.gradle:gradle-tooling-api:${gradle.gradleVersion}"
+    runtime 'org.slf4j:slf4j-simple:1.6.6'
+
     compile "junit:junit:4.10"
+
+    testCompile "org.spockframework:spock-core:0.7-groovy-1.8", {
+        exclude module: "groovy-all"
+    }
 }
 
 task wrapper(type: Wrapper) {
