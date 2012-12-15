@@ -17,47 +17,25 @@
 package org.gradle.testkit.functional.internal;
 
 import org.gradle.testkit.functional.ExecutionResult;
-import org.gradle.testkit.functional.GradleHandle;
 import org.gradle.testkit.functional.GradleRunner;
 import org.gradle.tooling.BuildLauncher;
 import org.gradle.tooling.GradleConnector;
 import org.gradle.tooling.ProjectConnection;
 
 import java.io.File;
-import java.util.LinkedList;
-import java.util.List;
 
 public class ToolingApiGradleRunner implements GradleRunner {
 
-    private File directory = new File(".").getAbsoluteFile();
-    private List<String> arguments = new LinkedList<String>();
-
-    public File getDirectory() {
-        return directory;
+    public ExecutionResult run(File directory, String... arguments) {
+        return start(directory, arguments).waitForFinish();
     }
 
-    public void setDirectory(File directory) {
-        this.directory = directory;
-    }
-
-    public List<String> getArguments() {
-        return arguments;
-    }
-
-    public void setArguments(List<String> arguments) {
-        this.arguments = arguments;
-    }
-
-    public ExecutionResult run() {
-        return start().waitForFinish();
-    }
-
-    public GradleHandle start() {
+    private GradleHandle start(File directory, String... arguments) {
         GradleConnector connector = GradleConnector.newConnector();
-        connector.forProjectDirectory(getDirectory());
+        connector.forProjectDirectory(directory);
         ProjectConnection connection = connector.connect();
         BuildLauncher launcher = connection.newBuild();
-        launcher.withArguments(arguments.toArray(new String[arguments.size()]));
+        launcher.withArguments(arguments);
         return new BuildLauncherBackedGradleHandle(launcher);
     }
 }

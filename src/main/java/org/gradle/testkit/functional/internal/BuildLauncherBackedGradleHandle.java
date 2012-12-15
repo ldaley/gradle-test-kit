@@ -17,7 +17,6 @@
 package org.gradle.testkit.functional.internal;
 
 import org.gradle.testkit.functional.ExecutionResult;
-import org.gradle.testkit.functional.GradleHandle;
 import org.gradle.tooling.BuildLauncher;
 import org.gradle.tooling.GradleConnectionException;
 import org.gradle.tooling.ResultHandler;

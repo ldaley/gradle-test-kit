@@ -21,16 +21,6 @@ import java.util.List;
 
 public interface GradleRunner {
 
-    File getDirectory();
-
-    void setDirectory(File directory);
-
-    List<String> getArguments();
-
-    void setArguments(List<String> arguments);
-
-    ExecutionResult run();
-
-    GradleHandle start();
+    ExecutionResult run(File directory, String... arguments);
 
 }

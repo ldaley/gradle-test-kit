@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
-package org.gradle.testkit.functional;
+package org.gradle.testkit.functional.internal;
+
+import org.gradle.testkit.functional.ExecutionResult;
 
 public interface GradleHandle {
 

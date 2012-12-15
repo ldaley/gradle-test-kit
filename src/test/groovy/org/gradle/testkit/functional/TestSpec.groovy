@@ -56,12 +56,10 @@ class TestSpec extends Specification {
         """
 
         when:
-        GradleRunner runner = new ToolingApiGradleRunner()
-        runner.directory = tmp.root
-        runner.arguments << "echo" << "-I" << initScript.absolutePath
+        GradleRunner runner = GradleRunnerBuilder.builder().build()
 
         then:
-        runner.run().standardOutput.contains("I ran!")
+        runner.run(tmp.root, "echo", "-I", initScript.absolutePath).standardOutput.contains("I ran!")
     }
 }
 
