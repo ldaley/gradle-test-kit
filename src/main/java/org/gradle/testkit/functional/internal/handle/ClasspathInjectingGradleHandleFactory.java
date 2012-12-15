@@ -1,4 +1,4 @@
-package org.gradle.testkit.functional.internal;
+package org.gradle.testkit.functional.internal.handle;
 
 import org.gradle.testkit.functional.ClasspathSpec;
 import org.gradle.testkit.functional.internal.classpath.ClasspathAddingInitScriptBuilder;

@@ -18,6 +18,8 @@ package org.gradle.testkit.functional.internal;
 
 import org.gradle.testkit.functional.ExecutionResult;
 import org.gradle.testkit.functional.GradleRunner;
+import org.gradle.testkit.functional.internal.handle.GradleHandle;
+import org.gradle.testkit.functional.internal.handle.GradleHandleFactory;
 
 import java.io.File;
 
