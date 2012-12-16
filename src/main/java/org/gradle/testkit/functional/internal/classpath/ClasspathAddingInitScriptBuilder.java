@@ -26,7 +26,7 @@ public class ClasspathAddingInitScriptBuilder {
                     }
                 }
                 writer.write("\n");
-                writer.write("      )");
+                writer.write("      )\n");
                 writer.write("    }\n");
                 writer.write("  }\n");
                 writer.write("}\n");

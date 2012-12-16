@@ -37,13 +37,12 @@ class TestSpec extends Specification {
         """
 
         when:
-        runner.with {
-            directory = tmp.root
-            arguments << "echo"
-        }
+        runner.directory = tmp.root
+        runner.arguments << "echo"
 
         then:
-        runner.run().standardOutput.contains("I ran!")
+        ExecutionResult result = runner.run()
+        result.standardOutput.contains("I ran!")
     }
 }
 
