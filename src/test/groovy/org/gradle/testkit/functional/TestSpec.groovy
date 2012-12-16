@@ -20,6 +20,7 @@ package org.gradle.testkit.functional
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.testkit.functional.foo.Thing
 import org.junit.Rule
 import org.junit.rules.TemporaryFolder
 import spock.lang.Specification
@@ -27,7 +28,7 @@ import spock.lang.Specification
 class TestSpec extends Specification {
 
     @Rule TemporaryFolder tmp
-
+    def runner = GradleRunnerFactory.create()
 
     def "test thing"() {
         given:
@@ -36,12 +37,13 @@ class TestSpec extends Specification {
         """
 
         when:
-        def builder = GradleRunnerBuilder.builder()
-        builder.classpath.classes << SomePlugin
-        GradleRunner runner = builder.build()
+        runner.with {
+            directory = tmp.root
+            arguments << "echo"
+        }
 
         then:
-        runner.run(tmp.root, "echo").standardOutput.contains("I ran!")
+        runner.run().standardOutput.contains("I ran!")
     }
 }
 
@@ -51,6 +53,8 @@ class SomePlugin implements Plugin<Project> {
     void apply(Project project) {
         project.task("echo") {
             doLast {
+                new Thing() // Class in another package
+                org.apache.commons.io.Charsets.ISO_8859_1 // is a compile dependency, test it's available
                 println "I ran!"
             }
         }

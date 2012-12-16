@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-package org.gradle.testkit.functional.internal.handle;
+package org.gradle.testkit.functional.internal.toolingapi;
 
 import org.gradle.testkit.functional.ExecutionResult;
 import org.gradle.testkit.functional.internal.DefaultExecutionResult;
+import org.gradle.testkit.functional.internal.GradleHandle;
 import org.gradle.tooling.BuildLauncher;
 import org.gradle.tooling.GradleConnectionException;
 import org.gradle.tooling.ResultHandler;

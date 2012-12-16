@@ -18,12 +18,15 @@ package org.gradle.testkit.functional.internal;
 
 import org.gradle.testkit.functional.ExecutionResult;
 import org.gradle.testkit.functional.GradleRunner;
-import org.gradle.testkit.functional.internal.handle.GradleHandle;
-import org.gradle.testkit.functional.internal.handle.GradleHandleFactory;
 
 import java.io.File;
+import java.util.LinkedList;
+import java.util.List;
 
 public class DefaultGradleRunner implements GradleRunner {
+
+    private File directory;
+    private List<String> arguments = new LinkedList<String>();
 
     private final GradleHandleFactory handleFactory;
 
@@ -31,11 +34,29 @@ public class DefaultGradleRunner implements GradleRunner {
         this.handleFactory = handleFactory;
     }
 
-    public ExecutionResult run(File directory, String... arguments) {
-        return start(directory, arguments).waitForFinish();
+    public File getDirectory() {
+        return directory;
     }
 
-    private GradleHandle start(File directory, String... arguments) {
+    public void setDirectory(File directory) {
+        this.directory = directory;
+    }
+
+    public List<String> getArguments() {
+        return arguments;
+    }
+
+    public void setArguments(List<String> arguments) {
+        this.arguments = arguments;
+    }
+
+    public ExecutionResult run() {
+        return start().waitForFinish();
+    }
+
+    private GradleHandle start() {
         return handleFactory.start(directory, arguments);
     }
+
+
 }
