@@ -11,7 +11,7 @@ import java.util.List;
 public class ClasspathAddingInitScriptBuilder {
 
     public void build(File initScriptFile, final List<File> classpath) {
-        IoActions.writeFile(initScriptFile, new ErroringAction<Writer>() {
+        IoActions.writeTextFile(initScriptFile, new ErroringAction<Writer>() {
             @Override
             protected void doExecute(Writer writer) throws Exception {
                 writer.write("allprojects {\n");
