@@ -1,7 +1,7 @@
 package org.gradle.testkit.functional.internal.classpath;
 
-import org.gradle.api.internal.ErroringAction;
-import org.gradle.api.internal.IoActions;
+import org.gradle.internal.ErroringAction;
+import org.gradle.internal.IoActions;
 import org.gradle.util.TextUtil;
 
 import java.io.File;
