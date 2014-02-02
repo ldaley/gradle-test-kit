@@ -2,11 +2,6 @@ apply plugin: "groovy"
 apply plugin: "idea"
 apply from: "gradle/idea.gradle"
 
-configurations {
-    compile.extendsFrom -= [groovy]
-    testCompile.extendsFrom groovy
-}
-
 repositories {
     mavenCentral()
     maven {
@@ -15,7 +10,7 @@ repositories {
 }
 
 dependencies {
-    groovy localGroovy()
+    compile localGroovy()
     compile gradleApi()
 
     // just here to test that dependencies of build logic can be used in a functional test
@@ -29,8 +24,4 @@ dependencies {
     testCompile "org.spockframework:spock-core:0.7-groovy-1.8", {
         exclude module: "groovy-all"
     }
-}
-
-task wrapper(type: Wrapper) {
-    gradleVersion "1.7"
 }
