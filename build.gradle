@@ -18,8 +18,6 @@ dependencies {
     compile gradleApi()
     compile "org.gradle:gradle-tooling-api:${gradle.gradleVersion}"
 
-    runtime 'org.slf4j:slf4j-simple:1.6.6'
-
     // just here to test that dependencies of build logic can be used in a functional test
     buildLogic "commons-io:commons-io:2.4"
     testCompile configurations.buildLogic
